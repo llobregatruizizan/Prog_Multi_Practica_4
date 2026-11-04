@@ -15,13 +15,13 @@ class PaisesScreen extends StatelessWidget {
       body: Center(
           // Proporciona a _creaLlistaPaises la lista de paises de Europa
           child:
-              _creaListaPaises(_repository.getPaises())), 
+              _creaListaPaises(_repository.getPaises("América"))), 
     );
   }
 
   Widget? _creaListaPaises(List<Pais> paises) {
     // Recibimos la lista de paises
-    
+
     // TO-DO
     // Debemos utilizar un ListView.builder para recorrer la lista de países
     // y generar un widget personalizado de tipo PaisCard, con la imagen y el nombre.
