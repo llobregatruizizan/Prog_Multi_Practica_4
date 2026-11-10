@@ -3,7 +3,9 @@ import 'package:paisesgui/data/repositories/paises_repository.dart';
 import 'package:paisesgui/domain/entities/pais.dart';
 
 class PaisesScreen extends StatelessWidget {
-  PaisesScreen();
+  final String nombreContinente;
+
+  PaisesScreen({super.key, required this.nombreContinente});
 
   // Referencia al repositorio, de donde obtendremos la lista de continentes
   final PaisesRepository _repository = PaisesRepository();
@@ -15,7 +17,7 @@ class PaisesScreen extends StatelessWidget {
       body: Center(
           // Proporciona a _creaLlistaPaises la lista de paises de Europa
           child:
-              _creaListaPaises(_repository.getPaises("América"))), 
+              _creaListaPaises(_repository.getPaises(nombreContinente))), 
     );
   }
 

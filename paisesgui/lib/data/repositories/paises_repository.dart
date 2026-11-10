@@ -51,12 +51,12 @@ class PaisesRepository {
 
   // TO-DO:
   // Implementar el método infoPais
-  Pais infoPais() {
+  Pais infoPais(String nombrePais) {
 
   for (var conti in api.continentes) {
     for (var paisJSON in conti["paises"]) {
 
-      if (paisJSON["nombre"] == "Francia") {
+      if (paisJSON["nombre"] == nombrePais) {
         return Pais.fromJSON(paisJSON);
       }
 

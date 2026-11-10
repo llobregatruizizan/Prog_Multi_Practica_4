@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paisesgui/ui/screens/continentes_screen.dart';
 
 // En primer lugar, definimos el widget como un widget con estado
 class LauncherScreen extends StatefulWidget {
@@ -23,9 +24,15 @@ class _LauncherScreen extends State<LauncherScreen> {
     contenido = "";
   }
 
-  // Construimos el widget
-  @override
-  @override
+  void _correctoLogin() {
+    Navigator.pushReplacement<void, void>(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => ContinentesScreen(),
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
@@ -64,7 +71,7 @@ class _LauncherScreen extends State<LauncherScreen> {
 
                 // Campo de contraseña
                 TextField(
-                    controller: contrasenaController,
+                  controller: contrasenaController,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Contraseña",
@@ -83,14 +90,44 @@ class _LauncherScreen extends State<LauncherScreen> {
                   onPressed: () {
                     if (correoController.text == "izallorui@alu.edu.gva.es" &&
                         contrasenaController.text == "rV207e8t") {
-                      ScaffoldMessenger.of(
+                      Navigator.push(
                         context,
-                      ).showSnackBar(const SnackBar(content: Text("OK")));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Correo o contraseña incorrectos"),
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              ContinentesScreen(),
                         ),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Error"),
+                            content: const Text(
+                              "El usuario o la contraseña son incorrectas",
+                            ),
+                            actions: [
+                              TextButton(
+                                // Cuando se hace click en este botón se desapila
+                                // el diálogo para volver a la vista anterior.
+                                onPressed: () {
+                                  Navigator.pop(context, "Volver");
+                                },
+                                child: const Text("Volver"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  correoController.text =
+                                      "izallorui@alu.edu.gva.es";
+                                  contrasenaController.text = "rV207e8t";
+
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Rellenar usuario"),
+                              ),
+                            ],
+                          );
+                        },
                       );
                     }
                   },

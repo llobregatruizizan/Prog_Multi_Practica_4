@@ -17,6 +17,9 @@ class InfoPaisGeneral extends StatelessWidget {
     Pais pais = _repository.infoPais();
     
     // TO-DO
+    /*
+    
+    */
     // Añadir la información siguiente sobre el país:
     // Imagen, nombre, capital y descripción, de forma similar a como se muestra en el enunciado
 
