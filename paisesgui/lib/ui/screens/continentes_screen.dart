@@ -13,6 +13,7 @@ class ContinentesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       // Estructura de la pantalla Material Design
       body: Center(
@@ -64,6 +65,7 @@ class ContinenteRoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // TO-DO
 
     // devolveremos un widget de tipo CircleAvatar con las siguientes propiedades

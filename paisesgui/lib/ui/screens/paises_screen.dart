@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paisesgui/data/repositories/paises_repository.dart';
 import 'package:paisesgui/domain/entities/pais.dart';
+import 'package:paisesgui/ui/screens/infopais_general.dart';
 
 class PaisesScreen extends StatelessWidget {
   final String nombreContinente;
@@ -10,10 +11,15 @@ class PaisesScreen extends StatelessWidget {
   // Referencia al repositorio, de donde obtendremos la lista de continentes
   final PaisesRepository _repository = PaisesRepository();
 
+  /*
+  */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+             appBar: AppBar(
+          title: Text('Paises de $nombreContinente'),
+        ),
       body: Center(
           // Proporciona a _creaLlistaPaises la lista de paises de Europa
           child:
@@ -65,7 +71,18 @@ class PaisCard extends StatelessWidget {
 
 
      //border radius: se pone en el card
-    return Card (
+  
+    
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => InfoPaisGeneral(nombrePais: nombre),
+          ),
+        );
+      },
+      child: Card (
       
       clipBehavior: Clip.antiAlias, // Sirve para que la expansion de las imagenes no afecte al borderRadius
           shape: RoundedRectangleBorder(
@@ -83,6 +100,8 @@ class PaisCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.displayMedium,),)
                       ],
       )
+    )
     );
+    
   }
 }
