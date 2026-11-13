@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:paisesgui/data/repositories/paises_repository.dart';
 import 'package:paisesgui/domain/entities/pais.dart';
 
+
 class InfoPaisGeneral extends StatelessWidget {
   final String nombrePais;
 

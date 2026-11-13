@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paisesgui/data/repositories/paises_repository.dart';
 import 'package:paisesgui/domain/entities/pais.dart';
-import 'package:paisesgui/ui/screens/infopais_general.dart';
+import 'package:paisesgui/ui/screens/navigation_screen.dart';
 
 class PaisesScreen extends StatelessWidget {
   final String nombreContinente;
@@ -13,19 +13,24 @@ class PaisesScreen extends StatelessWidget {
 
   /*
   */
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-             appBar: AppBar(
-          title: Text('Paises de $nombreContinente'),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'Paises de $nombreContinente',
+        style: const TextStyle(
+          fontFamily: "LeckerliOne",
+          fontSize: 24,
         ),
-      body: Center(
-          // Proporciona a _creaLlistaPaises la lista de paises de Europa
-          child:
-              _creaListaPaises(_repository.getPaises(nombreContinente))), 
-    );
-  }
+      ),
+    ),
+    body: Center(
+      // Proporciona a _creaLlistaPaises la lista de paises de Europa
+      child: _creaListaPaises(_repository.getPaises(nombreContinente)),
+    ),
+  );
+}
 
   Widget? _creaListaPaises(List<Pais> paises) {
     // Recibimos la lista de paises
@@ -33,31 +38,25 @@ class PaisesScreen extends StatelessWidget {
     // TO-DO
     // Debemos utilizar un ListView.builder para recorrer la lista de países
     // y generar un widget personalizado de tipo PaisCard, con la imagen y el nombre.
-         
 
-  // Recorremos la lista de continentes
-  
+    // Recorremos la lista de continentes
 
-
-  
-    return   ListView.builder(itemCount: paises.length,
-                   itemBuilder: (context, index){
-                      return PaisCard(
-                        nombre: paises[index].nombre,
-                        imagen: paises[index].imagen ?? "");
-                },
-            );
+    return ListView.builder(
+      itemCount: paises.length,
+      itemBuilder: (context, index) {
+        return PaisCard(
+          nombre: paises[index].nombre,
+          imagen: paises[index].imagen ?? "",
+        );
+      },
+    );
   }
 }
 
 class PaisCard extends StatelessWidget {
   // Este widget recibirá dos argumentos con nombre para construirse:
   // la imagen (imagen) y el nombre del país (nombre)
-  const PaisCard({
-    super.key,
-    required this.imagen,
-    required this.nombre,
-  });
+  const PaisCard({super.key, required this.imagen, required this.nombre});
 
   final String imagen;
   final String nombre;
@@ -69,39 +68,41 @@ class PaisCard extends StatelessWidget {
     // que muestre la imagen  (obtenida de Internet a partir de la url)
     // y el nombre del país.
 
+    //border radius: se pone en el card
 
-     //border radius: se pone en el card
-  
-    
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => InfoPaisGeneral(nombrePais: nombre),
+            builder: (context) => NavigationScreen(nombrePais: nombre),
           ),
         );
       },
-      child: Card (
-      
-      clipBehavior: Clip.antiAlias, // Sirve para que la expansion de las imagenes no afecte al borderRadius
-          shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+      child: Card(
+        clipBehavior: Clip
+            .antiAlias, // Sirve para que la expansion de las imagenes no afecte al borderRadius
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Stack(
+          children: [
+            Image.network(
+              imagen,
+              height: 200,
+              width: double
+                  .infinity, // Para que la imagen ocupe el ancho disponible de su contenedor.
+              fit: BoxFit.cover,
+            ),
+            Positioned(
+              bottom: 20,
+              left: 30,
+              child: Text(
+                nombre,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+            ),
+          ],
         ),
-       child: Stack(
-      children: [Image.network( imagen,
-                                height: 200,
-                                width: double.infinity, // Para que la imagen ocupe el ancho disponible de su contenedor.
-                                fit: BoxFit.cover,
-                              ),
-                 Positioned(bottom: 20,
-                            left: 30,
-                            child: Text(nombre,
-                            style: Theme.of(context).textTheme.displayMedium,),)
-                      ],
-      )
-    )
+      ),
     );
-    
   }
 }

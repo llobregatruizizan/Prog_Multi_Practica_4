@@ -9,9 +9,9 @@ import 'package:paisesgui/domain/entities/pais.dart';
 
 class InfoPaisDetalle extends StatelessWidget {
   
-  InfoPaisDetalle({
-    super.key,
-  });
+  final String nombrePais;
+
+  InfoPaisDetalle({super.key, required this.nombrePais});
 
       // Referencia al repositorio, de donde obtendremos la lista de continentes
   final PaisesRepository _repository = PaisesRepository();
@@ -19,7 +19,7 @@ class InfoPaisDetalle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Pais pais = _repository.infoPais();
+    Pais pais = _repository.infoPais(nombrePais);
 
     // TO-DO
     // Añadir la información siguiente sobre el país:
